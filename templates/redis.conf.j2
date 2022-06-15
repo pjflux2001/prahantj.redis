@@ -1,0 +1,69 @@
+# {{ ansible_managed }}
+
+daemonize no
+supervised {{ systemd_enable }}
+dir {{ redis_dir }}
+pidfile /var/run/redis/{{ redis_daemon }}.pid
+port {{ redis_port }}
+bind {{ redis_bind_interface }}
+
+{% if redis_unixsocket %}
+unixsocket {{ redis_unixsocket }}
+{% endif %}
+
+timeout {{ redis_timeout }}
+
+loglevel {{ redis_loglevel }}
+logfile {{ redis_logfile }}
+
+slowlog-log-slower-than {{ redis_slowlog_log_slower_than }}
+slowlog-max-len {{ redis_slowlog_max_len }}
+
+# To enable logging to the system logger, just set 'syslog-enabled' to yes,
+# and optionally update the other syslog parameters to suit your needs.
+# syslog-enabled no
+# syslog-ident redis
+# syslog-facility local0
+
+databases {{ redis_databases }}
+
+{% for save in redis_save %}
+save {{ save }}
+{% endfor %}
+
+rdbcompression {{ redis_rdbcompression }}
+dbfilename {{ redis_dbfilename }}
+dir {{ redis_dbdir }}
+
+# maxclients 128
+
+{% if redis_maxmemory %}
+maxmemory {{ redis_maxmemory }}
+maxmemory-policy {{ redis_maxmemory_policy }}
+maxmemory-samples {{ redis_maxmemory_samples }}
+{% endif %}
+
+appendonly {{ redis_appendonly }}
+appendfsync {{ redis_appendfsync|string }}
+
+no-appendfsync-on-rewrite {{ redis_no_appendfsync_on_rewrite }}
+auto-aof-rewrite-percentage {{ redis_auto_aof_rewrite_percentage }}
+auto-aof-rewrite-min-size {{ redis_auto_aof_rewrite_min_size }}
+
+client-output-buffer-limit normal {{ redis_client_output_buffer_limit_normal }}
+client-output-buffer-limit slave {{ redis_client_output_buffer_limit_slave }}
+client-output-buffer-limit pubsub {{ redis_client_output_buffer_limit_pubsub }}
+
+activerehashing {{ redis_activerehashing }}
+
+{% for include in redis_includes %}
+include {{ include }}
+{% endfor %}
+
+{% if redis_requirepass %}
+requirepass {{ redis_requirepass }}
+{% endif %}
+
+{% for redis_disabled_command in redis_disabled_commands %}
+rename-command {{ redis_disabled_command }} ""
+{% endfor %}
