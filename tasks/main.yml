@@ -17,9 +17,9 @@
 - name: Ensure Redis is configured.
   template:
     src: redis.conf.j2
-    dest: "{{ redis_conf_path }}"
+    dest: "{{ redis_conf_path }}_{{ redis_port }}"
     mode: "{{ redis_conf_mode }}"
-  notify: restart redis
+  #notify: restart redis
 
 # Setup/install tasks.
 - include_tasks: setup-RedHat.yml
@@ -38,4 +38,5 @@
    mode: 0777
 
 - name: Ensure Redis is running and enabled on boot.
-  service: "name={{ redis_daemon }} state=started enabled=yes"
+  #service: "name={{ redis_daemon }} state=started enabled=yes"
+  command: "redis-server {{ redis_conf_path }}_{{ redis_port }}"
