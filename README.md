@@ -1,4 +1,4 @@
-# Ansible Role: Redis 
+# Ansible Role : Redis 
  
 [![CI](https://github.com/geerlingguy/ansible-role-redis/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-redis/actions?query=workflow%3ACI)
 
