@@ -1,8 +1,8 @@
-# Ansible Role: Redis
+# Ansible Role: Redis 
  
 [![CI](https://github.com/geerlingguy/ansible-role-redis/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-redis/actions?query=workflow%3ACI)
 
-Installs [Redis](http://redis.io/) on Linux.
+Installs [Redis](http://redis.io/) on Linux. 
 
 ## Requirements
 
@@ -102,7 +102,7 @@ For extra security, you can disable certain Redis commands (this is especially i
 
 ## Dependencies
 
-None.
+None
 
 ## Example Playbook
 
